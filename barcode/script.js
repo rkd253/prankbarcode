@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const captureArea = document.getElementById('capture-area');
 
     let qrCodeInstance = null;
+    const DANA_LOGO_Sakti = "https://i.ibb.co/wr08Fww6/Sleekshot-2026-03-25-05-26-50-removebg-preview.png";
 
-    // Data Dinamis
     function refreshDynamicData() {
         const now = new Date();
         const future = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     refreshDynamicData();
 
-    // Sinkronisasi Input
     inputNominal.addEventListener('input', (e) => {
         displayNominal.textContent = e.target.value || "0";
     });
@@ -49,43 +48,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Tombol Generate
     generateBtn.addEventListener('click', async () => {
-        let qrData = photoUrlInput.value.trim();
+        let qrContent = photoUrlInput.value.trim();
         const uploadedFile = fileInput.files[0];
 
-        // Kompres foto (tes tanpa logo dulu biar PASTI MUNCUL)
-        if (!qrData && uploadedFile) {
-            qrData = await resizeAndCompress(uploadedFile);
+        // Kompres foto (skala 15x15) - SANGAT KECIL agar barcode renggang & gampang scan
+        if (!qrContent && uploadedFile) {
+            qrContent = await resizeAndCompress(uploadedFile);
         }
 
-        // Default link zonk
-        if (!qrData) {
-            qrData = "https://i.ibb.co/vzV4S8g/images.jpg"; 
+        if (!qrContent) {
+            qrContent = "https://i.ibb.co/vzV4S8g/images.jpg"; 
         }
 
         qrCodeDiv.innerHTML = "";
         refreshDynamicData();
         
-        // KONFIGURASI PALING SEDERHANA UNTUK TES
         qrCodeInstance = new QRCodeStyling({
             width: 250, 
             height: 250,
             type: "canvas",
-            data: qrData,
+            data: qrContent,
+            image: DANA_LOGO_Sakti, 
             dotsOptions: {
-                color: "#000000", // Hitam murni
-                type: "square"   // Kotak biasa
+                color: "#111111",
+                type: "rounded"
             },
-            backgroundOptions: {
-                color: "#ffffff",
+            backgroundOptions: { color: "#ffffff" },
+            imageOptions: {
+                crossOrigin: "anonymous",
+                hideBackgroundDots: true,
+                imageSize: 0.35,
+                margin: 5
             },
             cornersSquareOptions: {
-                type: "square",
-                color: "#000000"
+                type: "extra-rounded",
+                color: "#118eea"
             },
             qrOptions: {
-                errorCorrectionLevel: "L" 
+                errorCorrectionLevel: "M" 
             }
         });
 
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.src = event.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const TARGET_SIZE = 25; 
+                    const TARGET_SIZE = 15; // Ukuran favicon agar barcode sangat enteng
                     canvas.width = TARGET_SIZE;
                     canvas.height = TARGET_SIZE;
                     const ctx = canvas.getContext('2d');
@@ -116,17 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Tombol Download
     downloadBtn.addEventListener('click', () => {
-        if (!qrCodeInstance) {
-            alert("Voucher belum dibuat!");
-            return;
-        }
-        downloadBtn.textContent = "MEMPROSES...";
+        if (!qrCodeInstance) return;
+        downloadBtn.textContent = "SEDANG SIMPAN...";
         downloadBtn.disabled = true;
 
         html2canvas(captureArea, {
-            scale: 2,
+            scale: 3,
             useCORS: true,
             allowTaint: true,
             backgroundColor: "#ffffff"
