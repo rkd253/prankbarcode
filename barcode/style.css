@@ -1,0 +1,360 @@
+:root {
+    --dana-blue: #118eea;
+    --dana-dark: #0076e0;
+    --bg-light: #f4f7fb;
+    --text-main: #1d2129;
+    --text-muted: #8a919e;
+    --white: #ffffff;
+    --green: #2ecc71;
+    --orange: #f39c12;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.app-container {
+    display: flex;
+    gap: 50px;
+    max-width: 1200px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* Editor Panel */
+.editor {
+    flex: 1;
+    max-width: 480px;
+}
+
+.header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 30px;
+}
+
+.main-logo {
+    height: 35px;
+    width: fit-content;
+}
+
+.tagline {
+    font-weight: 800;
+    color: var(--dana-blue);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.config-card {
+    background: white;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.input-group {
+    margin-bottom: 24px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid #eef0f3;
+    border-radius: 14px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+}
+
+.input-group input:focus {
+    border-color: var(--dana-blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0, 140, 237, 0.08);
+}
+
+.file-upload {
+    border: 2px dashed #e2e8f0;
+    padding: 24px;
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #f8fafc;
+}
+
+.file-upload:hover {
+    border-color: var(--dana-blue);
+    background: #f0f7ff;
+}
+
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%; width: 30%; height: 1px; background: #e2e8f0;
+}
+
+.divider::after {
+    content: "";
+    position: absolute;
+    right: 0; top: 50%; width: 30%; height: 1px; background: #e2e8f0;
+}
+
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, var(--dana-blue), var(--dana-dark));
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0, 140, 237, 0.2);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Voucher Design */
+.preview-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.dana-voucher {
+    width: 375px;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.voucher-header {
+    background: var(--dana-blue);
+    padding: 35px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+}
+
+.header-pill {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.dana-white-logo {
+    height: 18px;
+    width: auto;
+}
+
+.voucher-body {
+    padding: 30px 25px;
+    text-align: center;
+}
+
+.success-header {
+    margin-bottom: 25px;
+}
+
+.check-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 12px;
+}
+
+.voucher-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.amount-card {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
+
+.amount-card .currency {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dana-blue);
+    vertical-align: top;
+    line-height: 2.2;
+}
+
+.amount-card span:last-child {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #111;
+}
+
+.message-bubble {
+    background: white;
+    border: 1px solid #eef2f6;
+    padding: 15px;
+    border-radius: 18px;
+    text-align: left;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.sender-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.sender-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+}
+
+.barcode-wrapper {
+    margin-bottom: 30px;
+}
+
+.scan-instruction {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--dana-blue);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#qrcode-container {
+    background: white;
+    padding: 12px;
+    border-radius: 18px;
+    display: inline-block;
+    border: 1px solid #f1f3f5;
+}
+
+.transaction-details {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.detail-row span:first-child {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.detail-row span:last-child {
+    font-size: 0.75rem;
+    color: #111;
+    font-weight: 700;
+}
+
+.voucher-footer {
+    padding: 24px;
+    background: #fcfdfe;
+    border-top: 1px solid rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+.secure-badge {
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.voucher-footer p {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.btn-success {
+    background: #111111;
+    color: white;
+    border: none;
+    padding: 18px 45px;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.btn-success:hover {
+    background: #222;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .app-container { flex-direction: column; align-items: center; padding: 20px; }
+    .editor, .dana-voucher { width: 100%; max-width: 400px; }
+}

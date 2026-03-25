@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANA - Ambil Saldo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <main class="editor">
+            <div class="header-brand">
+                <img src="https://i.ibb.co/wr08Fww6/Sleekshot-2026-03-25-05-26-50-removebg-preview.png" alt="DANA" class="main-logo">
+                <span class="tagline">PRANK GENERATOR</span>
+            </div>
+
+            <div class="config-card">
+                <div class="input-group">
+                    <label>NOMINAL SALDO (RP)</label>
+                    <input type="text" id="input-nominal" value="500.000" placeholder="Contoh: 500.000">
+                </div>
+
+                <div class="input-group">
+                    <label>NAMA PENGIRIM (OPSIONAL)</label>
+                    <input type="text" id="input-sender" placeholder="Misal: Admin DANA Kaget">
+                </div>
+
+                <div class="input-group">
+                    <label>PESAN (OPSIONAL)</label>
+                    <input type="text" id="input-message" placeholder="Misal: Rejeki buat kamu!">
+                </div>
+
+                <div class="divider"><span>KONTEN BARCODE (LINK/TEKS)</span></div>
+
+                <div class="input-group">
+                    <label>LINK ATAU TEKS RAHASIA</label>
+                    <input type="text" id="photo-url" placeholder="Paste link di sini...">
+                </div>
+
+                <div class="divider"><span>ATAU UPLOAD FOTO</span></div>
+
+                <div class="input-group">
+                    <div class="file-upload" onclick="document.getElementById('photo-file').click()">
+                        <span id="file-name">Pilih foto dari galeri...</span>
+                        <input type="file" id="photo-file" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <button id="generate-btn" class="btn-primary">BUAT VOUCHER DANA</button>
+            </div>
+        </main>
+
+        <section class="preview-section">
+            <div id="capture-area" class="dana-voucher">
+                <div class="voucher-header">
+                    <div class="header-pill">
+                        <img src="https://i.ibb.co/wr08Fww6/Sleekshot-2026-03-25-05-26-50-removebg-preview.png" alt="DANA" class="dana-white-logo">
+                    </div>
+                </div>
+                <div class="voucher-body">
+                    <div class="success-header">
+                        <div class="check-icon">✓</div>
+                        <h3 class="voucher-title">Pengiriman Berhasil!</h3>
+                    </div>
+
+                    <div class="amount-card">
+                        <span class="currency">Rp</span>
+                        <span id="display-nominal">500.000</span>
+                    </div>
+
+                    <div class="message-bubble" id="display-message-container">
+                        <span class="sender-label" id="display-sender">DANA Kaget</span>
+                        <p class="sender-text" id="display-message">Semoga harimu menyenangkan!</p>
+                    </div>
+
+                    <div class="barcode-wrapper">
+                        <p class="scan-instruction">Silahkan scan QR untuk ambil</p>
+                        <div id="qrcode-container">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-details">
+                        <div class="detail-row">
+                            <span>ID Transaksi</span>
+                            <span id="display-trx-id">DANA-20240325-102938</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Metode</span>
+                            <span>DANA Kaget</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="voucher-footer">
+                    <div class="secure-badge">🛡️ Saldo Terverifikasi Otomatis</div>
+                    <p>Berlaku hingga <span id="display-expiry">26 Mar 2024</span></p>
+                </div>
+            </div>
+
+            <button id="download-btn" class="btn-success">SIMPAN KE GALERI</button>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
