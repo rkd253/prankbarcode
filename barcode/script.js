@@ -31,70 +31,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     refreshDynamicData();
 
-    inputNominal.addEventListener('input', (e) => {
-        displayNominal.textContent = e.target.value || "0";
-    });
-    inputSender.addEventListener('input', (e) => {
-        displaySender.textContent = e.target.value || "DANA Kaget";
-    });
-    inputMessage.addEventListener('input', (e) => {
-        displayMessage.textContent = e.target.value || "Semoga harimu menyenangkan!";
-    });
+    inputNominal.addEventListener('input', (e) => { displayNominal.textContent = e.target.value || "0"; });
+    inputSender.addEventListener('input', (e) => { displaySender.textContent = e.target.value || "DANA Kaget"; });
+    inputMessage.addEventListener('input', (e) => { displayMessage.textContent = e.target.value || "Semoga harimu menyenangkan!"; });
 
     fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            fileNameDisplay.textContent = file.name;
-        }
+        if (e.target.files[0]) fileNameDisplay.textContent = e.target.files[0].name;
     });
 
     generateBtn.addEventListener('click', async () => {
         let qrContent = photoUrlInput.value.trim();
         const uploadedFile = fileInput.files[0];
 
-        // Kompres foto (skala 15x15) - SANGAT KECIL agar barcode renggang & gampang scan
         if (!qrContent && uploadedFile) {
             qrContent = await resizeAndCompress(uploadedFile);
         }
 
-        if (!qrContent) {
-            qrContent = "https://i.ibb.co/vzV4S8g/images.jpg"; 
-        }
+        if (!qrContent) qrContent = "https://i.ibb.co/vzV4S8g/images.jpg"; 
 
         qrCodeDiv.innerHTML = "";
         refreshDynamicData();
         
         qrCodeInstance = new QRCodeStyling({
-            width: 250, 
-            height: 250,
-            type: "canvas",
-            data: qrContent,
+            width: 250, height: 250, type: "canvas", data: qrContent,
             image: DANA_LOGO_Sakti, 
-            dotsOptions: {
-                color: "#111111",
-                type: "rounded"
-            },
+            dotsOptions: { color: "#111111", type: "rounded" },
             backgroundOptions: { color: "#ffffff" },
-            imageOptions: {
-                crossOrigin: "anonymous",
-                hideBackgroundDots: true,
-                imageSize: 0.35,
-                margin: 5
-            },
-            cornersSquareOptions: {
-                type: "extra-rounded",
-                color: "#118eea"
-            },
-            qrOptions: {
-                errorCorrectionLevel: "M" 
-            }
+            imageOptions: { crossOrigin: "anonymous", hideBackgroundDots: true, imageSize: 0.35, margin: 5 },
+            cornersSquareOptions: { type: "extra-rounded", color: "#118eea" },
+            qrOptions: { errorCorrectionLevel: "M" }
         });
 
         qrCodeInstance.append(qrCodeDiv);
-        
-        setTimeout(() => {
-            captureArea.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
+        setTimeout(() => { captureArea.scrollIntoView({ behavior: 'smooth' }); }, 300);
     });
 
     async function resizeAndCompress(file) {
@@ -106,10 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.src = event.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const TARGET_SIZE = 15; // Ukuran favicon agar barcode sangat enteng
+                    const TARGET_SIZE = 10; // Jurus pamungkas: Foto sekecil semut biar barcode renggang
                     canvas.width = TARGET_SIZE;
                     canvas.height = TARGET_SIZE;
                     const ctx = canvas.getContext('2d');
+                    ctx.filter = 'grayscale(100%)'; // Hitam putih biar makin enteng
                     ctx.drawImage(img, 0, 0, TARGET_SIZE, TARGET_SIZE);
                     resolve(canvas.toDataURL('image/jpeg', 0.1));
                 };
@@ -119,18 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     downloadBtn.addEventListener('click', () => {
         if (!qrCodeInstance) return;
-        downloadBtn.textContent = "SEDANG SIMPAN...";
+        downloadBtn.textContent = "MEMPROSES...";
         downloadBtn.disabled = true;
-
-        html2canvas(captureArea, {
-            scale: 3,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: "#ffffff"
-        }).then(canvas => {
+        html2canvas(captureArea, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: "#ffffff" }).then(canvas => {
             const link = document.createElement('a');
-            const fileName = `DANA_Voucher_${displayNominal.textContent.replace(/\./g, "")}.png`;
-            link.download = fileName;
+            link.download = `DANA_Voucher_${displayNominal.textContent.replace(/\./g, "")}.png`;
             link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
             downloadBtn.textContent = "SIMPAN KE GALERI";
